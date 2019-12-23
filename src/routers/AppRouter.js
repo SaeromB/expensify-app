@@ -18,7 +18,7 @@ const AppRouter = () => (
       {/* by using exact the path will show only one component */}
         <Route path="/" component={ExpenseDashBoard} exact={true}/>
         <Route path="/create" component={AddExpensePage} exact={true}/>
-        <Route path="/edit" component={EditExpensePage} exact={true} />
+        <Route path="/edit/:id" component={EditExpensePage} exact={true} />
         <Route path="/help" component={HelpPage} exact={true} />
         <Route component={NotFoundPage} />
       </Switch>
