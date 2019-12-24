@@ -23,7 +23,7 @@ const store = createStore((state = { count: 0}, action) => {
     case 'SET':
       return {
         count: action.count
-      }
+    }
     default:
       return state;
   }
