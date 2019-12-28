@@ -33,6 +33,10 @@ const resetCount = () => ({
 // calling state from the createStore is same as calling this.state
 // default state is 0
 
+// Reducers 
+// 1. Reducers are pure functions(output is determine by input like state and action and it doesn't use or change anything outside the scope)
+// 2. Never change state or action
+
 const countReducer = (state = { count: 0}, action) => {
   switch(action.type) {
     case 'INCREMENT':
