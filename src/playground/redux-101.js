@@ -32,7 +32,8 @@ const resetCount = () => ({
 // createStore needs to be a function to be the first argument
 // calling state from the createStore is same as calling this.state
 // default state is 0
-const store = createStore((state = { count: 0}, action) => {
+
+const countReducer = (state = { count: 0}, action) => {
   switch(action.type) {
     case 'INCREMENT':
       // const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
@@ -63,7 +64,9 @@ const store = createStore((state = { count: 0}, action) => {
   //   return state;
 
   // }
-});
+}
+
+const store = createStore(countReducer)
 
 const unsubscribe = store.subscribe(()=> {
   console.log(store.getState());
