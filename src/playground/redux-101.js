@@ -1,5 +1,33 @@
 // This is basic redux example
 import { createStore } from 'redux';
+//Action generators - functions that return action objects
+
+// if the payloade does not have a default object the property object will be undefined. (payload.incrementBy)
+// const incrementCount = (payload = {}) => ({
+//   type: 'INCREMENT',
+//   incrementBy: typeof payload.incrementBy === 'number' ? payload.incrementBy : 1
+// })
+
+// simplify the code above
+const incrementCount = ({incrementBy = 1} = {}) => ({
+  type: 'INCREMENT',
+  incrementBy
+})
+
+const decrementCount = ({decrementBy = 1} = {}) => ({
+  type: 'DECREMENT',
+  decrementBy
+})
+
+const setCount = ({count}) => ({
+  type: 'SET',
+  count
+})
+
+const resetCount = () => ({
+  type: 'RESET',
+})
+
 // store track the data 
 // createStore needs to be a function to be the first argument
 // calling state from the createStore is same as calling this.state
@@ -7,14 +35,14 @@ import { createStore } from 'redux';
 const store = createStore((state = { count: 0}, action) => {
   switch(action.type) {
     case 'INCREMENT':
-      const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
+      // const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
       return {
-        count : state.count + incrementBy
+        count : state.count + action.incrementBy
     };
     case 'DECREMENT':
-      const decrementBy = typeof action.decrementBy === 'number' ? action.decrementBy : 1;
+      // const decrementBy = typeof action.decrementBy === 'number' ? action.decrementBy : 1;
       return {
-        count : state.count - decrementBy
+        count : state.count - action.decrementBy
     }
     case 'RESET':
       return {
@@ -51,39 +79,34 @@ const unsubscribe = store.subscribe(()=> {
 // type property is action type
 // this will run store above
 // use action object to make changes to the state
-store.dispatch({
-  type: 'INCREMENT',
-  incrementBy: 5
- })
+
+// store.dispatch({
+//   type: 'INCREMENT',
+//   incrementBy: 5
+//  })
+
+// This will not work without a handler.
+store.dispatch(incrementCount({incrementBy:5}));
+
+store.dispatch(incrementCount());
 
  // This will only show Increment
 // unsubscribe();
 
-store.dispatch({
-  type: 'DECREMENT'
-})
+store.dispatch(decrementCount());
 
+store.dispatch(decrementCount({decrementBy: 10}));
 
-store.dispatch({
-  type: 'DECREMENT',
-  decrementBy: 10
-})
+store.dispatch(resetCount());
 
-store.dispatch({
-  type: 'RESET'
-})
+store.dispatch(setCount({count: 101}));
 
-store.dispatch({
-  type: 'SET',
-  count: 101
-})
-
-unsubscribe();
+// unsubscribe();
 
 
  
- //This gets the state object
-//  console.log(store.getState());
+// This gets the state object
+// console.log(store.getState());
 
 
 
