@@ -18,16 +18,37 @@ const removeExpense = ( {id} = {}) => ({
   id
 })
 
+const editExpense = (id, updates) => ({
+  type: 'EDIT_EXPENSE',
+  id,
+  updates
+})
+
+const setTextFilter = (text = '') => ({
+  type: 'SET_TEXT_FILTER',
+  text
+})
+
 const expensesReducerDefaultState = [];
 
+// action is what has changed 
 const expensesReducer = (state = expensesReducerDefaultState, action) => {
   switch(action.type){
     case 'ADD_EXPENSE': 
       return [...state, action.expense]
       // return state.concat(action.expense)
     case 'REMOVE_EXPENSE':
-      return state.filter(({id}) => {
-        return id !== action.id
+      return state.filter(({id}) => id !== action.id);
+    case 'EDIT_EXPENSE':
+      return state.map((expense) => {
+        if (expense.id === action.id) {
+          return {
+            ...expense,
+            ...action.updates
+          };
+        } else {
+          return expense;
+        }
       })
     default:
       return state;
@@ -43,6 +64,11 @@ const filterReducerDefaultState = {
 
 const filterReducer = (state = filterReducerDefaultState, action) => {
   switch(action.type){
+    case 'SET_TEXT_FILTER':
+      return {
+        ...state,
+        text: action.text
+      };
     default:
       return state;
   }
@@ -61,10 +87,10 @@ const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100}
 const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300}));
 
 store.dispatch(removeExpense({ id: expenseOne.expense.id}));
+store.dispatch(editExpense(expenseTwo.expense, {amount: 500}));
 
-console.log(expenseOne);
-
-
+store.dispatch(setTextFilter('rent'));
+store.dispatch(setTextFilter());
 
 // Filters reducers
 // text => '', sortBy => 'Date' , startDate = undefined, endDate = undefined
@@ -85,3 +111,16 @@ const demoState = {
     endDate: undefined
   }
 };
+
+// Spread object operater
+
+// const user = {
+//   name: 'JJ',
+//   age: '25',  
+// }
+
+// console.log ({
+//   ...user,
+//   location: 'Seoul',
+//   age: '27'
+// })
