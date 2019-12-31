@@ -1,53 +1,54 @@
 import { createStore, combineReducers } from 'redux';
-import uuid from 'uuid'
+import uuid from 'uuid';
 
 // ADD_EXPENSE
-const addExpense = ({description='', note='', amount=0, createAt = 0} = {}) => ({
+const addExpense = ({description='', note='', amount=0, createdAt = 0, } = {}) => ({
   type: 'ADD_EXPENSE',
   expense: {
     id: uuid(),
     description,
     note,
     amount,
-    createAt
+    createdAt,
+    
   }
-})
+});
 
 const removeExpense = ( {id} = {}) => ({
   type: 'REMOVE_EXPENSE',
   id
-})
+});
 
 const editExpense = (id, updates) => ({
   type: 'EDIT_EXPENSE',
   id,
   updates
-})
+});
 
 const setTextFilter = (text = '') => ({
   type: 'SET_TEXT_FILTER',
   text
-})
+});
 
-const sortByAmount = (amount) => ({
+const sortByAmount = () => ({
   type: 'SORT_BY_AMOUNT',
   amount
-})
+});
 
-const sortByDate = (date) => ({
+const sortByDate = () => ({
   type: 'SORT_BY_DATE',
   date
-})
+});
 
 const setStartDate = (startDate) => ({
   type: 'SET_START_DATE',
   startDate
-})
+});
 
 const setEndDate = (endDate) => ({
   type: 'SET_END_DATE',
   endDate
-})
+});
 
 const expensesReducerDefaultState = [];
 
@@ -73,16 +74,16 @@ const expensesReducer = (state = expensesReducerDefaultState, action) => {
     default:
       return state;
   }
-}
+};
 
-const filterReducerDefaultState = {
+const filtersReducerDefaultState = {
   text: '',
   sortBy: 'date',
   startDate: undefined,
   endDate: undefined
-}
+};
 
-const filterReducer = (state = filterReducerDefaultState, action) => {
+const filtersReducer = (state = filtersReducerDefaultState, action) => {
   switch(action.type){
     case 'SET_TEXT_FILTER':
       return {
@@ -112,20 +113,37 @@ const filterReducer = (state = filterReducerDefaultState, action) => {
     default:
       return state;
   }
-}
+};
+
+// Get visible expenses
+const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
+  return expenses.filter((expense) => {
+    // if the typeof startDate is not number this will be filtered if not expense.createdAt(ex:1) will be checked if it is bigger then startDate
+    const startDateMatch = typeof startDate !== 'number' || expense.createdAt >= startDate;
+    const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate;
+    const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
+    // if all of these are true and the item will be in the array if the result is false it will not show 
+    return startDateMatch && endDateMatch && textMatch;
+  });
+};
 
 // Store Creation
 const store = createStore(combineReducers({
   expenses : expensesReducer,
-  filter : filterReducer
-}))
+  filters : filtersReducer
+}));
 
 store.subscribe(() => {
-  console.log(store.getState())
-})
+  const state = store.getState()
+  const visibleExpenses = getVisibleExpenses(state.expenses, state.filters)
+  console.log(visibleExpenses)
+});
 
-// const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100}));
-// const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300}));
+// const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100, createdAt: 1000}));
+// const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300, createdAt: -1000}));
+
+
+store.dispatch(setTextFilter('ffe'));
 
 // store.dispatch(removeExpense({ id: expenseOne.expense.id}));
 // store.dispatch(editExpense(expenseTwo.expense, {amount: 500}));
@@ -137,9 +155,10 @@ store.subscribe(() => {
 // store.dispatch(sortByDate());
 // Filters reducers
 
-store.dispatch(setStartDate({startDate:125}));
-store.dispatch(setStartDate());
-store.dispatch(setEndDate({endDate:1250}));
+// store.dispathc(setStartDate(-1000))
+// store.dispatch(setStartDate({startDate:125}));
+// store.dispatch(setStartDate());
+// store.dispatch(setEndDate({endDate:1250}));
 
 const demoState = {
   expenses : [{
@@ -147,7 +166,7 @@ const demoState = {
     description: 'Rent',
     note: 'This is the final payment',
     amount: 65555,
-    createAt: 0, 
+    createdAt: 0, 
   }],
   filters: {
     text: 'rent',
