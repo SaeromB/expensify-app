@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // Going to use the BrowserRouter to create the Router once and Route for everysingle page
 import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
-import ExpenseDashBoard from '../component/DashBoard';
-import AddExpensePage from '../component/AddExpense';
-import EditExpensePage from '../component/EditExpense';
+import ExpenseDashBoard from '../component/ExpenseDashBoard';
+import AddExpensePage from '../component/AddExpensePage';
+import EditExpensePage from '../component/EditExpensePage';
 import HelpPage from '../component/HelpPage';
 import NotFoundPage from '../component/NotFound';
 import Header from '../component/Header';
