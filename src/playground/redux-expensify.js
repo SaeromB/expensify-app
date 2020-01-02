@@ -30,7 +30,7 @@ const setTextFilter = (text = '') => ({
   text
 });
 
-const sortByAmount = (amount) => ({
+const sortByAmount = () => ({
   type: 'SORT_BY_AMOUNT',
   amount
 });
