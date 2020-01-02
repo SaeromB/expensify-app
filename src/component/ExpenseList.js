@@ -1,12 +1,18 @@
 import React from 'react';
 // this connects react from redux store use at individual components 
 import { connect } from 'react-redux';
+import ExpenseListItem from './ExpenseListItem';
+import selectExpenses from '../selectors/expenses';
+
 
 const ExpenseList = (props) => (
   <div>
     <h1>ExpenseList</h1>
-    {props.filters.text}
-    {props.expenses.length}
+    {/* {props.filters.text}
+    {props.expenses.length} */}
+    {props.expenses.map((expense) =>{
+      return <ExpenseListItem key={expense.id}{...expense} /> 
+    })}
   </div>
 );
 
@@ -23,8 +29,9 @@ const ExpenseList = (props) => (
 // When the store changes the component will rerender the new values
 const mapStateToProps = (state) => {
   return {
-    expenses: state.expenses,
-    filters: state.filters
+    expenses: selectExpenses(state.expenses, state.filters)
   }
 }
+
+// mapStateToProps is what we want from the store and ExpenseList is the component that we want the connected verson of?
 export default connect(mapStateToProps)(ExpenseList);
