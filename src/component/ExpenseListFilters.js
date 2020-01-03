@@ -6,7 +6,8 @@ const ExpenseListFilters = (props) => (
   <div>
     {/* when the input changes the onChange fires */}
     {/* the value will be the text from the store */}
-    <input type="text" value={props.filters.text} onChange={(e)=> {
+    <input type="text"
+     value={props.filters.text} onChange={(e)=> {
       // pass in the action object 
       props.dispatch(setTextFilter(e.target.value))
       // console.log(e.target.value)

@@ -1,9 +1,12 @@
 // Going to use the BrowserRouter to create the Router once and Route for everysingle page
+import React from 'react';
+import ExpenseForm from './ExpenseForm';
 
 const AddExpensePage = () => (
   <div>
-    This is my add Expense compnent
+    <ExpenseForm />
   </div>
+
 )
 
 export default AddExpensePage;
