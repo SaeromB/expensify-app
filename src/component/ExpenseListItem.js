@@ -8,7 +8,7 @@ const ExpenseListItem = ({ id, description, amount, createdAt}) => (
     </Link>
     <p>{amount} - {createdAt}</p>
   </div>
-)
+);
 
 
 export default (ExpenseListItem);

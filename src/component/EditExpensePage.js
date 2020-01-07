@@ -3,14 +3,12 @@ import React from 'react';
 // import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import ExpenseForm from './ExpenseForm';
-import { editExpense } from '../actions/expenses';
-import { removeExpense } from '../actions/expenses';
-
+import { editExpense, removeExpense } from '../actions/expenses';
 
 // Edit expense need the current value
 const EditExpensePage = (props) => {
   // React Routes are going to send them as components that is going to be used as <Route component/>
-  console.log(props);
+  // console.log(props);
   return (
     <div>
       {/* Editing the expense with id of {props.match.params.id} */}
@@ -18,6 +16,7 @@ const EditExpensePage = (props) => {
         // This makes the data floating
         // expense ={props.expense}
         // dispatch action to edit expense
+        expense={props.expense}
         onSubmit={(expense)=> {
         props.dispatch(editExpense(props.expense.id, expense));
         props.history.push('/')
