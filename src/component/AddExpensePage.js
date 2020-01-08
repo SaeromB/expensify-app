@@ -6,15 +6,15 @@ import {addExpense} from '../actions/expenses';
 
 const AddExpensePage = (props) => (
   <div>
+    <h1>Add Expense</h1>
     <ExpenseForm onSubmit={(expense)=> {
       // Added the date to the redux-store
       props.dispatch(addExpense(expense));
       // change pages
-      props.history.push('/help');
+      props.history.push('/');
     }}/>
   </div>
-
-)
+);
 
 // This needs to be connected in the store 
 // Now props. dispatch can be used.

@@ -22,7 +22,7 @@ const EditExpensePage = (props) => {
         props.history.push('/')
         }} />
         <button onClick={()=>{
-        props.dispatch(removeExpense({id: props.expense.id}))
+        props.dispatch(removeExpense({id: props.expense.id}));
         props.history.push('/');
         }}>Remove</button>
     </div>
@@ -31,10 +31,12 @@ const EditExpensePage = (props) => {
 
 // Give the component the current expense 
 // find the expenses that matches the props.id
-const mapToStateProps = (state, props ) => {
+const mapStateToProps = (state, props ) => {
   return {
     expense: state.expenses.find((expense) => expense.id === props.match.params.id)
   }
 }
 
-export default connect(mapToStateProps)(EditExpensePage);
+export default connect(mapStateToProps)(EditExpensePage);
+
+

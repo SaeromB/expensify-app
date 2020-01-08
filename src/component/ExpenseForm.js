@@ -1,17 +1,18 @@
 import React from 'react';
 import moment from 'moment';
 import {SingleDatePicker} from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
 
 // const date = new Date();
 
-const now = moment();
-console.log(now.format('MMM Do, YYYY'));
+// const now = moment();
+// console.log(now.format('MMM Do, YYYY'));
 
 export default class ExpenseForm extends React.Component {
   constructor(props){
     super(props);
+
     this.state = {
       // if props.expese exist then show props.expense.description if not show empty string.
       description: props.expense ? props.expense.description : '',
@@ -19,14 +20,14 @@ export default class ExpenseForm extends React.Component {
       // we need the amount with a decimal and convert to String
       amount: props.expense ? (props.expense.amount / 100).toString() : '',
       createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
-      calanderFocused: false,
+      calendarFocused: false,
       error: ''
-    }
+    };
   }
 
   onDescriptionChange = (e) => {
     const description = e.target.value;
-    this.setState (() => ({description}))
+    this.setState (() => ({description}));
   }
 
   onNoteChange = (e) => {
@@ -34,16 +35,16 @@ export default class ExpenseForm extends React.Component {
     this.setState (() => ({note}))
     // e.parsist()
     // this.setState({note: e.target.value})
-  }
-  // will return a date when itis clicked
+  };
+
+  // will return a date when it is clicked
   onDateChange = (createdAt) => {
     if(createdAt){
       this.setState(() => ({createdAt}))
     }
-  }
-
+  };
   onFocusChange = ({focused}) => {
-    this.setState(()=> ({calanderFocused : focused}))
+    this.setState(()=> ({calendarFocused : focused}))
   }
 
   onAmountChange = (e) => {
@@ -57,6 +58,7 @@ export default class ExpenseForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    
     if(!this.state.description || !this.state.amount){
       this.setState(() => ({error: 'Please provide description and amount'})) 
     } else {
@@ -70,11 +72,10 @@ export default class ExpenseForm extends React.Component {
         // amount is a string working at base 10
         amount: parseFloat(this.state.amount, 10 ) * 100,
         // this is a momnet object 
-        createdAt: this.state.createdAt.valueOf( ),
+        createdAt: this.state.createdAt.valueOf(),
         note: this.state.note
       }) 
       // console.log('Submitted');
-      
     }
   }
   
@@ -95,7 +96,7 @@ export default class ExpenseForm extends React.Component {
           <SingleDatePicker
             date={this.state.createdAt}
             onDateChange={this.onDateChange}
-            focused={this.state.calanderFocused}
+            focused={this.state.calendarFocused}
             onFocusChange={this.onFocusChange}
             numberOfMonths={1}
             // this will make everysingle day avalible 

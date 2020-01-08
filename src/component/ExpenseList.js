@@ -10,7 +10,7 @@ const ExpenseList = (props) => (
     <h1>ExpenseList</h1>
     {/* {props.filters.text}
     {props.expenses.length} */}
-    {props.expenses.map((expense) =>{
+    {props.expenses.map((expense) => {
       return <ExpenseListItem key={expense.id}{...expense} /> 
     })}
   </div>
@@ -35,3 +35,6 @@ const mapStateToProps = (state) => {
 
 // mapStateToProps is what we want from the store and ExpenseList is the component that we want the connected verson of?
 export default connect(mapStateToProps)(ExpenseList);
+
+
+
