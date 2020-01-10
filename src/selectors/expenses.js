@@ -7,6 +7,7 @@ const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
     // const startDateMatch = typeof startDate !== 'number' || expense.createdAt >= startDate;
     // const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate;
     const createdAtMoment = moment(expense.createdAt);
+    // isSameOrBefore checks to see if our start date is the same or before the createdAttime if not then the start date is after createdAt time and don't show expense
     const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true; 
     const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') :  true;
     const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
