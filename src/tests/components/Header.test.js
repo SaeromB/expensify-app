@@ -5,7 +5,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 // import ReactShallowRenderer from 'react-test-renderer/shallow';
 // import toJSON from 'enzyme-to-json';
-import Header from '../../component/Header';
+import Header from '../../components/Header';
 import '../setupTest';
 
 test('should render Header correctly', () => {

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render ExpenseList with empty expense 1`] = `ShallowWrapper {}`;
+
+exports[`Should render ExpenseList with expenses 1`] = `ShallowWrapper {}`;
