@@ -9,6 +9,8 @@ import configureStore from './store/configureStore';
 import {addExpense} from './actions/expenses';
 import {setTextFilter} from './actions/filters';
 import getVisibleExpenses from './selectors/expenses';
+import 'react-dates/lib/css/_datepicker.css';
+
 // import nomalize.css will make the css look the same in every browser(Chrome, Firefox, IE)
 
 const store = configureStore();
