@@ -3,3 +3,5 @@
 exports[`Should render ExpenseForm correctly 1`] = `ShallowWrapper {}`;
 
 exports[`Should render ExpenseForm correctly with expense data 1`] = `ShallowWrapper {}`;
+
+exports[`Should render error for invalid form submission 1`] = `ShallowWrapper {}`;
