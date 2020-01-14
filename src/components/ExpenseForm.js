@@ -55,7 +55,7 @@ export default class ExpenseForm extends React.Component {
       this.setState(() => ({amount}))
     }
   }
-
+  
   onSubmit = (e) => {
     e.preventDefault();
     
