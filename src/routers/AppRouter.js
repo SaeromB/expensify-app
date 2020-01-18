@@ -1,13 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 // Going to use the BrowserRouter to create the Router once and Route for everysingle page
-import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
-import ExpenseDashBoard from '../component/ExpenseDashBoard';
-import AddExpensePage from '../component/AddExpensePage';
-import EditExpensePage from '../component/EditExpensePage';
-import HelpPage from '../component/HelpPage';
-import NotFoundPage from '../component/NotFound';
-import Header from '../component/Header';
+import {BrowserRouter, Route, Switch, Router} from 'react-router-dom';
+import ExpenseDashBoardPage from '../components/ExpenseDashBoardPage';
+import AddExpensePage from '../components/AddExpensePage';
+import EditExpensePage from '../components/EditExpensePage';
+import HelpPage from '../components/HelpPage';
+import NotFoundPage from '../components/NotFound';
+import Header from '../components/Header';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -16,7 +15,7 @@ const AppRouter = () => (
       <Header />
       <Switch>
       {/* by using exact the path will show only one component */}
-        <Route path="/" component={ExpenseDashBoard} exact={true}/>
+        <Route path="/" component={ExpenseDashBoardPage} exact={true}/>
         <Route path="/create" component={AddExpensePage} exact={true}/>
         <Route path="/edit/:id" component={EditExpensePage} />
         <Route path="/help" component={HelpPage}  />
@@ -24,7 +23,7 @@ const AppRouter = () => (
       </Switch>
     </div>
   </BrowserRouter>
-)
+);
 
 export default AppRouter;
 
