@@ -9,13 +9,26 @@ const AddExpensePage = (props) => (
     <h1>Add Expense</h1>
     <ExpenseForm onSubmit={(expense)=> {
       // Added the date to the redux-store
-      props.dispatch(addExpense(expense));
+      // props.dispatch(addExpense(expense));
+      props.onSubmit(expense);
       // change pages
       props.history.push('/');
     }}/>
   </div>
 );
+// mapDispatchToProps a new wrapper component will subscribe to Redux store update
+// when the store needs to updated mapDispatchToProps will be called
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onSubmit: (expense) => dispatch(addExpense(expense))
+//   }
+// }
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit : (expense) => dispatch(addExpense(expense))
+});
 
 // This needs to be connected in the store 
 // Now props. dispatch can be used.
-export default connect()(AddExpensePage);
+export default connect(undefined, mapDispatchToProps)(AddExpensePage);
